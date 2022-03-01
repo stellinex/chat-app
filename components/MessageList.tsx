@@ -5,7 +5,7 @@ import { Flex } from '@chakra-ui/react'
 import Button from './Button'
 import { useLazyQuery, useQuery } from '@apollo/client'
 import { FETCH_MORE_MESSAGES, FETCH_LASTEST_MESSAGES } from '../graphql/queries'
-import { ChannelId, CurrentView, Messages } from '../interfaces/index'
+import { ChannelId, CurrentView, Messages, UserId } from '../interfaces/index'
 import { useEffect, useRef, useState } from 'react'
 import MessageItem from './MessageItem'
 
@@ -19,7 +19,7 @@ const Container = styled.div`
 `
 
 type Props = {
-  user: string
+  user: UserId
   channelId: ChannelId
   unsentMessages?: Messages
   onResendMessage: (text: string) => void

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 import { Flex } from '@chakra-ui/react'
-import { ChannelId } from '../interfaces/index'
 import { format } from 'date-fns'
 import { WarningIcon, CheckCircleIcon } from '@chakra-ui/icons'
+import { UserId } from '../interfaces/index'
 
 const Container = styled(Flex)`
   align-items: center;
@@ -15,7 +15,7 @@ const MessageBody = styled(Flex)`
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `
 
-const Avatar = styled.div`
+const Avatar = styled(Flex)`
   display: inline-flex;
   justify-content: center;
   color: white;
@@ -25,7 +25,6 @@ const Avatar = styled.div`
   font-size: 10px;
   margin-bottom: 4px;
   align-items: center;
-  background: black;
 `
 
 const MessageAvatar = styled.div`
@@ -62,18 +61,31 @@ const Name = styled.div`
 `
 
 type Props = {
-  user: string
-  userId: string
+  user: UserId
+  userId: UserId
   text: string
   datetime: Date
   isError?: boolean
+}
+
+const getAvatarColor = (userId: UserId) => {
+  switch (userId) {
+    case 'Sam':
+      return { background: '#0044ff' }
+    case 'Joyse':
+      return { background: '#190072' }
+    case 'Russell':
+      return { background: '#bb194f' }
+    default:
+      return 'black'
+  }
 }
 
 const MessageItem = ({ user, userId, text, datetime, isError = false }: Props) => {
   return (
     <Container flexDir={userId === user ? 'row-reverse' : 'row'}>
       <MessageAvatar>
-        <Avatar>{userId.slice(0, 2).toUpperCase()}</Avatar>
+        <Avatar {...getAvatarColor(userId)}>{userId.slice(0, 2).toUpperCase()}</Avatar>
 
         <Name>{userId}</Name>
       </MessageAvatar>

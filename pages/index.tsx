@@ -11,10 +11,10 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState, ChangeEvent } from 'react'
 import MessageList from '../components/MessageList'
 import TextEditor from '../components/TextEditor'
-import { ChannelId, Messages } from '../interfaces/index'
+import { ChannelId, Messages, UserId } from '../interfaces/index'
 import { useMutation } from '@apollo/client'
 import { MESSAGE_POST_MUTATION } from '../graphql/mutations'
 import { useLocalStorage } from 'react-use'
@@ -66,7 +66,7 @@ const channelList = ['General', 'Technology', 'LGTM'] as ChannelId[]
 
 const IndexPage = () => {
   const [tabIndex, setTabIndex] = useState(0)
-  const [user, setUser] = useState('Sam')
+  const [user, setUser] = useState<UserId>('Sam')
   const [unsentMessages, setUnsentMessages] = useState<Messages>([])
   const [sendMessage] = useMutation(MESSAGE_POST_MUTATION, {
     refetchQueries: [FETCH_LASTEST_MESSAGES, 'MessagesFetchLatest'],
@@ -74,6 +74,11 @@ const IndexPage = () => {
   const [text, setText] = useLocalStorage('text', '')
 
   const toast = useToast()
+
+  const onChangeUser = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedUser = e.target.value as UserId
+    setUser(selectedUser)
+  }
 
   const onResendMessage = (resendText: string) => {
     sendMessage({
@@ -163,12 +168,7 @@ const IndexPage = () => {
                 <Flex flexDir="column">
                   <Label htmlFor="user">1. Choose your user</Label>
 
-                  <Select
-                    mb="12px"
-                    bg="white"
-                    fontSize="14px"
-                    onChange={(e) => setUser(e.target.value)}
-                  >
+                  <Select mb="12px" bg="white" fontSize="14px" onChange={(e) => onChangeUser(e)}>
                     <option value="Sam">Sam</option>
                     <option value="Russell">Russell</option>
                     <option value="Joyse">Joyse</option>
