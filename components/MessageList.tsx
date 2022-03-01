@@ -5,7 +5,7 @@ import { Flex } from '@chakra-ui/react'
 import Button from './Button'
 import { useLazyQuery, useQuery } from '@apollo/client'
 import { FETCH_MORE_MESSAGES, FETCH_LASTEST_MESSAGES } from '../graphql/queries'
-import { ChannelId } from '../interfaces/index'
+import { ChannelId, CurrentView, Messages } from '../interfaces/index'
 import { useEffect, useRef, useState } from 'react'
 import MessageItem from './MessageItem'
 
@@ -17,19 +17,6 @@ const Container = styled.div`
   justify-content: flex-start;
   overflow: auto;
 `
-
-export type Message = {
-  datetime: Date
-  text: string
-  userId: string
-  messageId?: string
-  isError?: boolean
-  channelId?: ChannelId
-}
-
-export type Messages = Message[]
-
-export type CurrentView = 'lastest' | 'previous' | 'next'
 
 type Props = {
   user: string

@@ -1,13 +1,7 @@
 import { Input } from '@chakra-ui/react'
 import Button from './Button'
-import { useLocalStorage } from 'react-use'
-import { useMutation, ReactiveVar, gql } from '@apollo/client'
-import { MESSAGE_POST_MUTATION } from '../graphql/mutations'
 import styled from '@emotion/styled'
-import { ChannelId } from '../interfaces'
 import { FormEvent } from 'react'
-import { useToast } from '@chakra-ui/react'
-import { Messages } from './MessageList'
 
 type Props = {
   text: string
